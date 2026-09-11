@@ -13,6 +13,8 @@ function Register() {
 
     const [error, setError] = useState('')
 
+    const [carregando, setCarregando] = useState(false)
+
     const [confirmarSenha, setConfirmarSenha] = useState('')
 
     const formularioValido = nome.trim() != "" && email.includes("@") && senha.length >= 8 && senha === confirmarSenha
@@ -20,7 +22,13 @@ function Register() {
     async function handleSubmit(e) {            
         e.preventDefault()
 
-        if(formularioValido) {
+        if(!formularioValido) {
+            return
+        }
+
+       try {
+            setCarregando(true)
+
             const response = await registrar(nome, email, senha)
 
             if (response.ok) {
@@ -29,7 +37,13 @@ function Register() {
                 const data = await response.json()
                 setError(data.message)
             }
-        }
+       } catch (error) {
+            setError('Não foi possível conectar ao servidor.')
+       } finally {
+            setCarregando(false)
+       }
+        
+        
     }
 
     
@@ -43,7 +57,7 @@ function Register() {
                     <h1 className="text-3xl font-medium">Bem-vindo ao BlogCore</h1>
                 </div>
 
-                <Form mode={"register"} error={error} setError={setError} formularioValido={formularioValido} handleSubmit={handleSubmit} email={email} nome={nome} senha={senha} confirmarSenha={confirmarSenha} setSenha={setSenha} setNome={setNome} setEmail={setEmail} setConfirmarSenha={setConfirmarSenha}/>
+                <Form mode={"register"} carregando={carregando} error={error} setError={setError} formularioValido={formularioValido} handleSubmit={handleSubmit} email={email} nome={nome} senha={senha} confirmarSenha={confirmarSenha} setSenha={setSenha} setNome={setNome} setEmail={setEmail} setConfirmarSenha={setConfirmarSenha}/>
 
                 <span>Já possuí uma conta ? <Link className="text-blue-400 hover:underline" to={"/login"}>Login</Link> </span>
             </div>

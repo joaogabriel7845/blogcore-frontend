@@ -12,6 +12,8 @@ function Login() {
 
     const [error, setError] = useState('')
 
+    const [carregando, setCarregando] = useState(false)
+
     const formularioValido = email.includes("@") && senha.length >= 8
 
     async function handleSubmit(e) {
@@ -22,25 +24,24 @@ function Login() {
         }
 
         try {
-            const response = await login(email, senha)
+            setCarregando(true)
 
-            console.log(response.status)
+            const response = await login(email, senha)
     
             if(response.ok) {
                 const dados = await response.json()
                 localStorage.setItem('token', dados.token)
                 navigate('/app')
-                setError('')
+                // setError('')
             }else {
                 const data = await response.json()
                 setError(data.message)
             }
         } catch (error) {
-            console.log(error)
             setError('Não foi possível conectar ao servidor.')
+        } finally {
+            setCarregando(false)
         }
-        
-        
     }
 
 
@@ -53,7 +54,7 @@ function Login() {
                     <h1 className="text-3xl font-medium">Bem-vindo ao BlogCore</h1>
                 </div>
 
-                <Form mode={"login"} error={error} setError={setError} formularioValido={formularioValido} handleSubmit={handleSubmit} email={email} senha={senha} setSenha={setSenha} setEmail={setEmail}/>
+                <Form mode={"login"} carregando={carregando} error={error} setError={setError} formularioValido={formularioValido} handleSubmit={handleSubmit} email={email} senha={senha} setSenha={setSenha} setEmail={setEmail}/>
 
                 <span>Ainda não é cadastrado? <Link className="text-blue-400 hover:underline" to={"/register"}>Cadastrar</Link> </span>
             </div>

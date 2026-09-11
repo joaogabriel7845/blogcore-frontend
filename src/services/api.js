@@ -23,7 +23,6 @@ export async function login(email, senha) {
     return response
 }
 
-
 // Registro
 
 export async function registrar(nome, email, senha) {

@@ -1,7 +1,8 @@
+import { OrbitProgress } from "react-loading-indicators"
 import Input from "./Input"
 import SubmitButton from "./SubmitButton"
 
-function Form({ mode, error, setError, nome, setNome, email, setEmail, senha, setSenha, confirmarSenha, setConfirmarSenha, handleSubmit, formularioValido}) {
+function Form({ mode, carregando, error, setError, nome, setNome, email, setEmail, senha, setSenha, confirmarSenha, setConfirmarSenha, handleSubmit, formularioValido}) {
 
 
     if (mode === "register") {
@@ -28,7 +29,11 @@ function Form({ mode, error, setError, nome, setNome, email, setEmail, senha, se
                     <span className="text-red-500">{error}</span>
                 }
 
-                <SubmitButton modo={"register"} onSubmit={handleSubmit} disabled={!formularioValido}/>
+                {carregando &&
+                    <OrbitProgress color="#000" size="small" text="" textColor="" />
+                }
+
+                <SubmitButton modo={"register"} disabled={!formularioValido}/>
                 
             </form>
         )
@@ -47,6 +52,10 @@ function Form({ mode, error, setError, nome, setNome, email, setEmail, senha, se
 
                 {error != '' &&
                     <span className="text-red-500">{error}</span>
+                }
+
+                {carregando &&
+                    <OrbitProgress color="#000" size="small" text="" textColor="" />
                 }
 
                 <SubmitButton modo={"login"} disabled={!formularioValido}/>
