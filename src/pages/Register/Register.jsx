@@ -19,6 +19,8 @@ function Register() {
 
     const formularioValido = nome.trim() != "" && email.includes("@") && senha.length >= 8 && senha === confirmarSenha
 
+    const [verSenha, setVerSenha] = useState(false)
+
     async function handleSubmit(e) {            
         e.preventDefault()
 
@@ -49,17 +51,18 @@ function Register() {
     
     
     return (
-        <div className="w-full min-h-screen flex justify-center p-5">
+        <div className="w-full min-h-screen flex justify-center p-5 font-[Space_Mono]">
 
             <div className="w-full flex flex-col gap-5 justify-center items-center">
 
-                <div className="p-5">
-                    <h1 className="text-3xl font-medium">Bem-vindo ao BlogCore</h1>
+                <div className="flex flex-col gap-2 p-5">
+                    <h1 className="text-3xl font-semibold">Bem-vindo ao BlogCore</h1>
+                    <p className="text-center font-light">Aprenda junto com outras pessoas</p>
                 </div>
 
-                <Form mode={"register"} carregando={carregando} error={error} setError={setError} formularioValido={formularioValido} handleSubmit={handleSubmit} email={email} nome={nome} senha={senha} confirmarSenha={confirmarSenha} setSenha={setSenha} setNome={setNome} setEmail={setEmail} setConfirmarSenha={setConfirmarSenha}/>
+                <Form mode={"register"} verSenha={verSenha} setVerSenha={setVerSenha} carregando={carregando} error={error} setError={setError} formularioValido={formularioValido} handleSubmit={handleSubmit} email={email} nome={nome} senha={senha} confirmarSenha={confirmarSenha} setSenha={setSenha} setNome={setNome} setEmail={setEmail} setConfirmarSenha={setConfirmarSenha}/>
 
-                <span>Já possuí uma conta ? <Link className="text-blue-400 hover:underline" to={"/login"}>Login</Link> </span>
+                <span className="font-light text-gray-600">Já possuí uma conta ? <Link className="text-blue-400 hover:underline" to={"/login"}>Login</Link> </span>
             </div>
 
         </div>

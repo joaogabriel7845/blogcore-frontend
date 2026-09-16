@@ -1,9 +1,9 @@
 import { OrbitProgress } from "react-loading-indicators"
-import Input from "./Input"
-import SubmitButton from "./SubmitButton"
+import Input from "./ui/inputs/Input"
+import SubmitButton from "./ui/buttons/SubmitButton"
+import { useState, version } from "react"
 
-function Form({ mode, carregando, error, setError, nome, setNome, email, setEmail, senha, setSenha, confirmarSenha, setConfirmarSenha, handleSubmit, formularioValido}) {
-
+function Form({ mode, carregando, error, setError, nome, setNome, email, setEmail, senha, setSenha, verSenha, setVerSenha, confirmarSenha, setConfirmarSenha, handleSubmit, formularioValido}) {
 
     if (mode === "register") {
         return (
@@ -11,19 +11,23 @@ function Form({ mode, carregando, error, setError, nome, setNome, email, setEmai
                 <Input onChange={(e) => {
                         setNome(e.target.value)
                         setError('')
-                    }} value={nome} mode="normal" name={"Nome"} placeHolder={"Digite o seu nome"}/>
+                    }} value={nome} mode="normal" name={"Nome"}/>
                 <Input onChange={(e) => {
                         setEmail(e.target.value)
                         setError('')
-                    }} value={email} type={"email"} mode="normal" name={"E-mail"} placeHolder={"Digite seu e-mail"}/>
+                    }} value={email} type={"email"} mode="normal" name={"E-mail"}/>
                 <Input onChange={(e) => {
                         setSenha(e.target.value)
                         setError('')
-                    }} value={senha} mode="password" name={"Senha"} placeHolder={"Digite a sua senha"}/>
+                    }} value={senha} verSenha={verSenha} setVerSenha={setVerSenha} mode="password" name={"Senha"}/>
                 <Input onChange={(e) => {
                         setConfirmarSenha(e.target.value)
                         setError('')
-                    }} value={confirmarSenha} mode="password" name={"Confirme a sua senha"} placeHolder={"Repita a sua senha"} className={confirmarSenha != "" && confirmarSenha != senha ? "ring-2 ring-red-500" : "ring-0"}/>
+                    }} value={confirmarSenha} verSenha={verSenha} setVerSenha={setVerSenha} mode="password" name={"Confirme a sua senha"} className={confirmarSenha != "" && confirmarSenha != senha ? "focus:ring focus:ring-red-500" : "ring-0"}/>
+
+                {senha.length > 0 && senha.length < 8 &&
+                    <span className="text-red-500">Sua senha deve ter no mínimo 8 carácteres</span>
+                }
 
                 {error != '' &&
                     <span className="text-red-500">{error}</span>
@@ -44,11 +48,11 @@ function Form({ mode, carregando, error, setError, nome, setNome, email, setEmai
                 <Input onChange={(e) => {
                         setEmail(e.target.value)
                         setError('')
-                    }} value={email} mode="normal" name={"E-mail"} placeHolder={"Digite seu e-mail"}/>
+                    }} value={email} mode="normal" name={"E-mail"}/>
                 <Input onChange={(e) => {
                         setSenha(e.target.value)
                         setError('')
-                    }} value={senha} mode="password" name={"Senha"} placeHolder={"Digite a sua senha"}/>
+                    }} value={senha} verSenha={verSenha} setVerSenha={setVerSenha} mode="password" name={"Senha"}/>
 
                 {error != '' &&
                     <span className="text-red-500">{error}</span>
@@ -58,7 +62,7 @@ function Form({ mode, carregando, error, setError, nome, setNome, email, setEmai
                     <OrbitProgress color="#000" size="small" text="" textColor="" />
                 }
 
-                <SubmitButton modo={"login"} disabled={!formularioValido}/>
+                <SubmitButton modo={"login"}/>
             </form>
         )
     }

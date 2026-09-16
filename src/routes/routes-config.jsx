@@ -2,6 +2,8 @@ import { createBrowserRouter, Navigate } from "react-router";
 import App from "../App";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
+import MyAccount from "../pages/MyAccount/MyAccount";
+import ErrorPage from "../pages/Error/ErrorPage";
 
 const rotas = createBrowserRouter(
     [
@@ -20,6 +22,14 @@ const rotas = createBrowserRouter(
         {
             path: "/login",
             element: <Login />
+        },
+        {
+            path: "/me/:id",
+            element: <MyAccount />
+        },
+        {
+            path: "/erro",
+            element: <ErrorPage />
         }
     ]
 )
