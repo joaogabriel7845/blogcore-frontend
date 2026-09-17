@@ -1,7 +1,6 @@
 import { OrbitProgress } from "react-loading-indicators"
 import Input from "./ui/inputs/Input"
 import SubmitButton from "./ui/buttons/SubmitButton"
-import { useState, version } from "react"
 
 function Form({ mode, carregando, error, setError, nome, setNome, email, setEmail, senha, setSenha, verSenha, setVerSenha, confirmarSenha, setConfirmarSenha, handleSubmit, formularioValido}) {
 

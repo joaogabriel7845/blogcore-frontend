@@ -12,6 +12,8 @@ function Login() {
 
     const [error, setError] = useState('')
 
+    const [verSenha, setVerSenha] = useState(false)
+
     const [carregando, setCarregando] = useState(false)
 
     async function handleSubmit(e) {
@@ -26,7 +28,6 @@ function Login() {
                 const dados = await response.json()
                 localStorage.setItem('token', dados.token)
                 navigate('/app')
-                // setError('')
             }else {
                 const data = await response.json()
                 setError(data.message)
@@ -49,7 +50,7 @@ function Login() {
                     <p className="text-center font-light">Compartilhe seus aprendizados !</p>
                 </div>
 
-                <Form mode={"login"} carregando={carregando} error={error} setError={setError} handleSubmit={handleSubmit} email={email} senha={senha} setSenha={setSenha} setEmail={setEmail}/>
+                <Form mode={"login"} verSenha={verSenha} setVerSenha={setVerSenha} carregando={carregando} error={error} setError={setError} handleSubmit={handleSubmit} email={email} senha={senha} setSenha={setSenha} setEmail={setEmail}/>
 
                 <span className="font-light text-gray-600">Ainda não é cadastrado? <Link className="text-blue-400 hover:underline" to={"/register"}>Cadastrar</Link> </span>
             </div>
